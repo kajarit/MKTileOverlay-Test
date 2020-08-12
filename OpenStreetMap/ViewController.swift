@@ -79,7 +79,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         )
         
         //SET UP ZOOM
-        let viewRegion : MKCoordinateRegion = MKCoordinateRegionMakeWithDistance(location, 10000, 10000);
+        let viewRegion : MKCoordinateRegion = MKCoordinateRegion.init(center: location, latitudinalMeters: 10000, longitudinalMeters: 10000);
         let adjustedRegion : MKCoordinateRegion = self.mapView.regionThatFits(viewRegion);
         mapView.setRegion(adjustedRegion ,animated:true);
         showMap(temp: template, IsBaseLayer: true, clearOverlays: false, tileSize: 256)
@@ -109,7 +109,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
     }
  
-    func tappedView() {
+    @objc func tappedView() {
         
         print("********* \(#function) **********")
         
@@ -153,7 +153,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         
         overlay!.canReplaceMapContent = IsBaseLayer
-        mapView.add(overlay!)
+        mapView.addOverlay(overlay!)
         
 
         
@@ -203,9 +203,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         mapView.showsUserLocation = true
         
-        let span : MKCoordinateSpan = MKCoordinateSpanMake(latDelta, lonDelta)
+        let span : MKCoordinateSpan = MKCoordinateSpan.init(latitudeDelta: latDelta, longitudeDelta: lonDelta)
         let location : CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
-        let region : MKCoordinateRegion = MKCoordinateRegionMake(location, span)
+        let region : MKCoordinateRegion = MKCoordinateRegion.init(center: location, span: span)
         
         mapView.setRegion(region, animated: true)
         
